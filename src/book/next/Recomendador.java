@@ -41,7 +41,7 @@ public class Recomendador extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Buscar");
 
-        jLabel2.setText("Test:");
+        jLabel2.setText("Test: Holis");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
