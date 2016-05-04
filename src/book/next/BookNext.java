@@ -18,4 +18,30 @@ public class BookNext {
         // TODO code application logic here
     }
     
+    public static String[] RecomendacionPrimaria()
+    {
+        String[] Libros = new String[5];
+        
+        Libros[0]= "El Principito";
+        Libros[1]= "Algebra de Baldor";
+        Libros[2]= "";
+        Libros[3]= "";
+        Libros[4]= "";
+        
+        return Libros;
+    }
+    
+    public static String[] TraerCarretilla()
+    {
+        String[] Libros = new String[5];
+        
+        Libros[0]= "Harry Potter 1";
+        Libros[1]= "El Aquimista";
+        Libros[2]= "";
+        Libros[3]= "";
+        Libros[4]= "";
+        
+        return Libros;
+    }
+    
 }
