@@ -53,8 +53,8 @@ public class conexion {
              rs.close();*/
        }
        catch (SQLException ex)
-       {
-           System.out.println("SQLException: "+ ex.getMessage());
+        {
+            System.out.println("SQLException: "+ ex.getMessage());
        }
        
        return rs;
