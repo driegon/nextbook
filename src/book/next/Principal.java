@@ -14,11 +14,17 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public int id_usuario = 0;
+    
+    public Principal(int id) {
         initComponents();
-        
+        Inicializar(id);       
+    }
+    
+    public void Inicializar(int id){
+        id_usuario = id;
         MostrarRecomendacion();
-        MostrarCarretilla();        
+        MostrarCarretilla();   
     }
     
     public void  MostrarRecomendacion()
@@ -38,33 +44,34 @@ public class Principal extends javax.swing.JFrame {
     {
         String[] Libros = new String[5];
         
-        Libros = BookNext.RecomendacionPrimaria();
+        Libros = BookNext.RecomendacionPrimaria(id_usuario);
                 
-        if(Libros[0] == ""){
+        if(Libros[0] == null){
             jLabel9.setVisible(false);
+            //jButton7.disable();
         }else{
             jLabel9.setText(Libros[0]);
         }
         
-        if(Libros[1] == ""){
+        if(Libros[1] == null){
             jLabel10.setVisible(false);
         }else{
             jLabel10.setText(Libros[1]);
         }
         
-        if(Libros[2] == ""){
+        if(Libros[2] == null){
             jLabel11.setVisible(false);
         }else{
             jLabel11.setText(Libros[2]);
         }
         
-        if(Libros[3] == ""){
+        if(Libros[3] == null){
             jLabel12.setVisible(false);
         }else{
             jLabel12.setText(Libros[3]);
         }
         
-        if(Libros[4] == ""){
+        if(Libros[4] == null){
             jLabel13.setVisible(false);
         }else{
             jLabel13.setText(Libros[4]);
@@ -76,33 +83,33 @@ public class Principal extends javax.swing.JFrame {
     {
         String[] Libros = new String[5];
         
-        Libros = BookNext.RecomendacionPorSimilitud();
+        Libros = BookNext.RecomendacionPorSimilitud(id_usuario);
                 
-        if(Libros[0] == ""){
+        if(Libros[0] == null){
             jLabel9.setVisible(false);
         }else{
             jLabel9.setText(Libros[0]);
         }
         
-        if(Libros[1] == ""){
+        if(Libros[1] == null){
             jLabel10.setVisible(false);
         }else{
             jLabel10.setText(Libros[1]);
         }
         
-        if(Libros[2] == ""){
+        if(Libros[2] == null){
             jLabel11.setVisible(false);
         }else{
             jLabel11.setText(Libros[2]);
         }
         
-        if(Libros[3] == ""){
+        if(Libros[3] == null){
             jLabel12.setVisible(false);
         }else{
             jLabel12.setText(Libros[3]);
         }
         
-        if(Libros[4] == ""){
+        if(Libros[4] == null){
             jLabel13.setVisible(false);
         }else{
             jLabel13.setText(Libros[4]);
@@ -114,33 +121,33 @@ public class Principal extends javax.swing.JFrame {
     {
         String[] Libros = new String[5];
         
-        Libros = BookNext.RecomendacionPorAprendizaje();
+        Libros = BookNext.RecomendacionPorAprendizaje(id_usuario);
                 
-        if(Libros[0] == ""){
+        if(Libros[0] == null){
             jLabel14.setVisible(false);
         }else{
             jLabel14.setText(Libros[0]);
         }
         
-        if(Libros[1] == ""){
+        if(Libros[1] == null){
             jLabel15.setVisible(false);
         }else{
             jLabel15.setText(Libros[1]);
         }
         
-        if(Libros[2] == ""){
+        if(Libros[2] == null){
             jLabel16.setVisible(false);
         }else{
             jLabel16.setText(Libros[2]);
         }
         
-        if(Libros[3] == ""){
+        if(Libros[3] == null){
             jLabel17.setVisible(false);
         }else{
             jLabel17.setText(Libros[3]);
         }
         
-        if(Libros[4] == ""){
+        if(Libros[4] == null){
             jLabel18.setVisible(false);
         }else{
             jLabel18.setText(Libros[4]);
@@ -152,33 +159,33 @@ public class Principal extends javax.swing.JFrame {
     {
         String[] Libros = new String[5];
         
-        Libros = BookNext.TraerCarretilla();
+        Libros = BookNext.TraerCarretilla(id_usuario);
                 
-        if(Libros[0] == ""){
+        if(Libros[0] == null){
             jLabel19.setVisible(false);
         }else{
             jLabel19.setText(Libros[0]);
         }
         
-        if(Libros[1] == ""){
+        if(Libros[1] == null){
             jLabel20.setVisible(false);
         }else{
             jLabel20.setText(Libros[1]);
         }
         
-        if(Libros[2] == ""){
+        if(Libros[2] == null){
             jLabel21.setVisible(false);
         }else{
             jLabel21.setText(Libros[2]);
         }
         
-        if(Libros[3] == ""){
+        if(Libros[3] == null){
             jLabel22.setVisible(false);
         }else{
             jLabel22.setText(Libros[3]);
         }
         
-        if(Libros[4] == ""){
+        if(Libros[4] == null){
             jLabel23.setVisible(false);
         }else{
             jLabel23.setText(Libros[4]);
@@ -220,6 +227,11 @@ public class Principal extends javax.swing.JFrame {
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -238,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Book.Next");
         jLabel1.setToolTipText("");
 
-        jLabel2.setText("¡Bienvenida Deisy!");
+        jLabel2.setText("¡Bienvenido!");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -360,15 +372,12 @@ public class Principal extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,25 +389,40 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jTextField2))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jTextField3))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jTextField4))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jTextField5))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton17)
@@ -406,7 +430,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton19)
                     .addComponent(jButton20)
                     .addComponent(jButton21))
-                .addContainerGap())
+                .addGap(22, 22, 22))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Por tus lecturas:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -526,8 +550,8 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -570,7 +594,7 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                new Principal(0).setVisible(true);
             }
         });
     }
@@ -612,5 +636,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

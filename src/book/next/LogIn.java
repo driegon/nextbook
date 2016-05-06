@@ -136,13 +136,17 @@ public class LogIn extends javax.swing.JFrame {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
-        resultado = bdd.consulta("SELECT 1 FROM usuario WHERE usuario = '"+tb_usuario.getText() +
+        resultado = bdd.consulta("SELECT * FROM usuario WHERE usuario = '"+tb_usuario.getText() +
                 "' AND password = '"+tb_password.getText() + "'");
         
         int contador = 0;
+        int id_usuario = 0;
+            
         
         try{
             while (resultado.next()){
+                //id_usuario = Integer.parseInt(resultado.getString("id"));
+                id_usuario = resultado.getInt("id");
                 contador++;
             }
             resultado.close();
@@ -152,9 +156,10 @@ public class LogIn extends javax.swing.JFrame {
         }
 
         if (contador > 0)
-        {
+        {               
+            
             // TODO add your handling code here:
-            Principal FrmPrincipal= new Principal();//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
+            Principal FrmPrincipal= new Principal(id_usuario);//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
 
             FrmPrincipal.setVisible(true); //muestra el segundo jFrame
 
