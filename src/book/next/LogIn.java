@@ -50,7 +50,7 @@ public class LogIn extends javax.swing.JFrame {
 
         tb_usuario.setText("dorozco");
 
-        tb_password.setText("********");
+        tb_password.setText("deisy");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Usuario:");

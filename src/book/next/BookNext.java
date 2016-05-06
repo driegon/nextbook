@@ -31,6 +31,32 @@ public class BookNext {
         return Libros;
     }
     
+    public static String[] RecomendacionPorSimilitud()
+    {
+        String[] Libros = new String[5];
+        
+        Libros[0]= "Pinocho";
+        Libros[1]= "Integrales";
+        Libros[2]= "";
+        Libros[3]= "";
+        Libros[4]= "";
+        
+        return Libros;
+    }
+    
+    public static String[] RecomendacionPorAprendizaje()
+    {
+        String[] Libros = new String[5];
+        
+        Libros[0]= "La Bella y la Bestia";
+        Libros[1]= "Fisica Fundamental";
+        Libros[2]= "Gramatica";
+        Libros[3]= "";
+        Libros[4]= "";
+        
+        return Libros;
+    }
+    
     public static String[] TraerCarretilla()
     {
         String[] Libros = new String[5];
