@@ -5,18 +5,36 @@
  */
 package book.next;
 
+import basededatos.conexion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Deisy
  */
 public class Buscador extends javax.swing.JFrame {
 
+    private int id_usuario = 0;
+    private String[] listaLibros = new String[5];
+    private conexion bdd = new conexion();
+    
     /**
-     * Creates new form Recomendador
+     * Inicializa la ventana
+     * @param id 
      */
+    public Buscador(int id) {
+        initComponents();
+        id_usuario = id;
+    }   
+    
     public Buscador() {
         initComponents();
-    }
+        id_usuario = 0;
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,45 +45,56 @@ public class Buscador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        tb_busqueda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_buscar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
+        cb_titulo = new javax.swing.JCheckBox();
+        cb_autor = new javax.swing.JCheckBox();
+        cb_edicion = new javax.swing.JCheckBox();
+        cb_resumen = new javax.swing.JCheckBox();
+        cb_categoria = new javax.swing.JCheckBox();
+        cb_palabrasclave = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        tabla_resultados = new javax.swing.JTable();
+        btn_agregar1 = new javax.swing.JButton();
+        btn_agregar2 = new javax.swing.JButton();
+        btn_agregar3 = new javax.swing.JButton();
+        btn_agregar4 = new javax.swing.JButton();
+        btn_agregar5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Búsqueda");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        jLabel1.setText("Busqueda:");
+        jLabel1.setText("Búsqueda:");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Buscar");
+        btn_buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jCheckBox1.setText("Titulo");
-        jCheckBox1.setActionCommand("Título");
+        cb_titulo.setText("Titulo");
+        cb_titulo.setActionCommand("Título");
 
-        jCheckBox2.setText("Autor");
+        cb_autor.setText("Autor");
 
-        jCheckBox3.setText("Edicion");
+        cb_edicion.setText("Edición");
 
-        jCheckBox5.setText("Resumen");
+        cb_resumen.setText("Resumen");
 
-        jCheckBox6.setText("Categoría");
+        cb_categoria.setText("Categoría");
 
-        jCheckBox7.setText("Palabras Clave");
+        cb_palabrasclave.setText("Palabras clave");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,16 +103,16 @@ public class Buscador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
+                    .addComponent(cb_autor)
+                    .addComponent(cb_titulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox5))
+                    .addComponent(cb_edicion)
+                    .addComponent(cb_resumen))
                 .addGap(136, 136, 136)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox7))
+                    .addComponent(cb_categoria)
+                    .addComponent(cb_palabrasclave))
                 .addGap(9, 9, 9))
         );
         jPanel1Layout.setVerticalGroup(
@@ -92,21 +121,21 @@ public class Buscador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox6)
+                        .addComponent(cb_categoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox7))
+                        .addComponent(cb_palabrasclave))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox3))
+                            .addComponent(cb_titulo)
+                            .addComponent(cb_edicion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox5))))
+                            .addComponent(cb_autor)
+                            .addComponent(cb_resumen))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_resultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", null, null, null},
                 {"2", null, null, null},
@@ -115,7 +144,7 @@ public class Buscador extends javax.swing.JFrame {
                 {"5", null, null, null}
             },
             new String [] {
-                "Numero", "Libro", "Autor", "Punteo"
+                "No.", "Libro", "Autor", "Punteo"
             }
         ) {
             Class[] types = new Class [] {
@@ -133,17 +162,28 @@ public class Buscador extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_resultados);
+        if (tabla_resultados.getColumnModel().getColumnCount() > 0) {
+            tabla_resultados.getColumnModel().getColumn(0).setResizable(false);
+            tabla_resultados.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tabla_resultados.getColumnModel().getColumn(3).setResizable(false);
+            tabla_resultados.getColumnModel().getColumn(3).setPreferredWidth(1);
+        }
 
-        jButton4.setText("Agregar 1");
+        btn_agregar1.setText("Agregar 1");
+        btn_agregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregar1ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Agregar 2");
+        btn_agregar2.setText("Agregar 2");
 
-        jButton6.setText("Agregar 3");
+        btn_agregar3.setText("Agregar 3");
 
-        jButton7.setText("Agregar 4");
+        btn_agregar4.setText("Agregar 4");
 
-        jButton8.setText("Agregar 5");
+        btn_agregar5.setText("Agregar 5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,25 +194,25 @@ public class Buscador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tb_busqueda))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton5)
-                                    .addComponent(jButton6)
-                                    .addComponent(jButton7)
-                                    .addComponent(jButton8))
+                                    .addComponent(btn_agregar1)
+                                    .addComponent(btn_agregar2)
+                                    .addComponent(btn_agregar3)
+                                    .addComponent(btn_agregar4)
+                                    .addComponent(btn_agregar5))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,23 +220,23 @@ public class Buscador extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(btn_buscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btn_agregar1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
+                        .addComponent(btn_agregar2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
+                        .addComponent(btn_agregar3)
                         .addGap(3, 3, 3)
-                        .addComponent(jButton7)
+                        .addComponent(btn_agregar4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8))
+                        .addComponent(btn_agregar5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -204,6 +244,205 @@ public class Buscador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+            limpiarTablaResultados();
+            
+            if(hayCriterioSeleccionado() == true){
+            conexion bdd = new conexion();
+            ResultSet resultado = null;
+
+            resultado = bdd.consulta(generarConsulta(tb_busqueda.getText()));
+            int contador = 0;
+
+            try{
+                while (resultado.next()){
+                    tabla_resultados.setValueAt(contador + 1, contador, 0);
+                    tabla_resultados.setValueAt(resultado.getString("titulo"), contador, 1);
+                    tabla_resultados.setValueAt(resultado.getString("nombre_autor"), contador, 2);
+                    tabla_resultados.setValueAt(resultado.getString("punteo"), contador, 3);
+                    listaLibros[contador] = resultado.getString("id");
+                    contador++;
+                }
+                resultado.close();
+            }catch(SQLException ex)
+            {
+                System.out.println("SQLException: "+ ex.getMessage());        
+            }
+            
+            if(contador == 0)
+            {
+              JOptionPane.showMessageDialog(null, "No hay resultados para la búsqueda", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                habilitarBotones(contador);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un criterio de búsqueda", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        limpiarTablaResultados();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar1ActionPerformed
+        if(agregarACarretilla(0) == true)
+        {
+            JOptionPane.showMessageDialog(null, "Se agregó correctamente el libro a tu carretilla", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar1ActionPerformed
+
+    private Boolean agregarACarretilla(int numeroLibro)
+    {
+        /* Agregar a estadísticas */
+        String retorno = "";
+        String query = "INSERT INTO recomendacion (id, id_libro, fec_transac, id_usuario) "
+                + "VALUES (NULL, "+listaLibros[numeroLibro]+", CURRENT_TIMESTAMP, "+id_usuario+")";
+        retorno = bdd.ejecutarQuery(query);      
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        bdd.cerrarConexion();
+        return false;
+    }
+    
+    private void habilitarBotones(int habilitables)
+    {
+        if(habilitables > 4)
+        {
+            btn_agregar5.setEnabled(true);
+        }
+        if(habilitables > 3)
+        {
+            btn_agregar4.setEnabled(true);
+        }
+        if(habilitables > 2)
+        {
+            btn_agregar3.setEnabled(true);
+        }
+        if(habilitables > 1)
+        {
+            btn_agregar2.setEnabled(true);
+        }
+        if(habilitables > 0)
+        {
+            btn_agregar1.setEnabled(true);
+        }
+    }
+    
+    private String generarConsulta(String ingresado)
+    {
+        String query = "SELECT DISTINCT\n" +
+                        "  l.id,\n" +
+                        "  l.titulo,\n" +
+                        "  CONCAT(a.Nombre,\n" +
+                        "  ' ',\n" +
+                        "  a.Apellido) AS nombre_autor,\n" +
+                        "  l.punteo\n" +
+                        "FROM libro AS l\n" +
+                        "INNER JOIN palabraclave_libro AS pl ON l.id = pl.id_libro\n" +
+                        "INNER JOIN palabraclave AS p ON pl.id_palabraclave = p.id\n" +
+                        "INNER JOIN categoria_libro AS cl ON l.id = cl.id_libro\n" +
+                        "INNER JOIN categoria AS c ON c.id = cl.id_categoria\n" +
+                        "INNER JOIN autor AS a ON l.id_autor = a.id\n" + 
+                        "WHERE ";
+        
+        List<String> opciones = new ArrayList<String>();
+        
+        if(cb_titulo.isSelected() == true)
+        {
+            opciones.add(" l.titulo LIKE '%"+ ingresado +"%' ");
+        }
+        
+        if(cb_edicion.isSelected() == true)
+        {
+            opciones.add(" l.edicion LIKE '%"+ ingresado +"%' ");
+        }
+        
+        if(cb_categoria.isSelected() == true)
+        {
+            opciones.add(" c.nombre LIKE '%"+ ingresado +"%' ");
+        }
+        
+        if(cb_autor.isSelected() == true)
+        {
+            opciones.add(" a.nombre LIKE '%"+ ingresado +"%' OR " + "a.apellido LIKE '%"+ ingresado +"%' ");
+        }
+        
+        if(cb_resumen.isSelected() == true)
+        {
+            opciones.add(" l.resumen LIKE '%"+ ingresado +"%' ");
+        }
+        
+        if(cb_palabrasclave.isSelected() == true)
+        {
+            opciones.add(" p.nombre LIKE '%"+ ingresado +"%' ");
+        }
+        
+        for (int i = 0; i < opciones.size(); i++) {
+            query += opciones.get(i);
+            
+            if (i != opciones.size() - 1)
+            {
+                query += " OR ";
+            }
+        }
+        
+        query += " LIMIT 5";
+        
+        return query;       
+    }
+    
+    /** 
+     * Verifica si hay al menos un criterio de búsqueda seleccionado
+     * @return Indica verdadero si hay, falso si no hay
+     */
+    private Boolean hayCriterioSeleccionado()
+    {
+        Boolean resultado = false;
+        
+        if(cb_titulo.isSelected() == true || cb_edicion.isSelected() == true ||
+            cb_categoria.isSelected() == true || cb_autor.isSelected() == true ||
+            cb_resumen.isSelected() == true || cb_palabrasclave.isSelected() == true)
+        {
+            resultado = true;
+        }
+        
+        return resultado;
+    }
+    
+    /**
+     * Limpia la tabla de resultados
+     */
+    private void limpiarTablaResultados(){
+        for (int i  = 0; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                tabla_resultados.setValueAt("", i, j);
+            }
+            listaLibros[i] = "";
+        }
+        
+        btn_agregar1.setEnabled(false);
+        btn_agregar2.setEnabled(false);
+        btn_agregar3.setEnabled(false);
+        btn_agregar4.setEnabled(false);
+        btn_agregar5.setEnabled(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -247,22 +486,22 @@ public class Buscador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JButton btn_agregar1;
+    private javax.swing.JButton btn_agregar2;
+    private javax.swing.JButton btn_agregar3;
+    private javax.swing.JButton btn_agregar4;
+    private javax.swing.JButton btn_agregar5;
+    private javax.swing.JButton btn_buscar;
+    private javax.swing.JCheckBox cb_autor;
+    private javax.swing.JCheckBox cb_categoria;
+    private javax.swing.JCheckBox cb_edicion;
+    private javax.swing.JCheckBox cb_palabrasclave;
+    private javax.swing.JCheckBox cb_resumen;
+    private javax.swing.JCheckBox cb_titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tabla_resultados;
+    private javax.swing.JTextField tb_busqueda;
     // End of variables declaration//GEN-END:variables
 }
