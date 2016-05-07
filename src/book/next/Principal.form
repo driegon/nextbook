@@ -603,21 +603,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_agregar7ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="tb_agregar8">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_agregar8ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="tb_agregar9">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_agregar9ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="tb_agregar10">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_agregar10ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -14,7 +14,7 @@ public class Buscador extends javax.swing.JFrame {
     /**
      * Creates new form Recomendador
      */
-    public Buscador() {
+    public Buscador(int id) {
         initComponents();
     }
 
@@ -241,7 +241,7 @@ public class Buscador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Buscador().setVisible(true);
+                new Buscador(0).setVisible(true);
             }
         });
     }
