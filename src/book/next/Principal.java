@@ -19,6 +19,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public int id_usuario = 0;
     String[] LibrosCarretilla = new String[5];
+    String[] LibrosPrimaria = new String[5];
+    String[] LibrosSimilitud = new String[5];
+    String[] LibrosAprendizaje = new String[5];
     conexion bdd = new conexion();
     
     public Principal(int id) {
@@ -30,6 +33,11 @@ public class Principal extends javax.swing.JFrame {
         id_usuario = id;
         MostrarRecomendacion();
         MostrarCarretilla();   
+    }
+
+    public void RecalcularPuntajeLibro()
+    {
+        //Se recalcula el punteo del libro en base al puesto por el usuario
     }
     
     public void  MostrarRecomendacion()
@@ -46,128 +54,142 @@ public class Principal extends javax.swing.JFrame {
     }
     
     public void MostrarPrimaria()
-    {
-        String[] Libros = new String[5];
-        
-        Libros = BookNext.RecomendacionPrimaria(id_usuario);
+    {   
+        LibrosPrimaria = null;
+        LibrosPrimaria = BookNext.RecomendacionPrimaria(id_usuario);
                 
-        if(Libros[0] == null){
+        if(LibrosPrimaria[0] == null){
             jLabel9.setVisible(false);
             //jButton7.disable();
         }else{
-            jLabel9.setText(Libros[0]);
+            jLabel9.setVisible(true);
+            jLabel9.setText(LibrosPrimaria[0].split(",")[1]);
         }
         
-        if(Libros[1] == null){
+        if(LibrosPrimaria[1] == null){
             jLabel10.setVisible(false);
         }else{
-            jLabel10.setText(Libros[1]);
+            jLabel10.setVisible(true);
+            jLabel10.setText(LibrosPrimaria[1].split(",")[1]);
         }
         
-        if(Libros[2] == null){
+        if(LibrosPrimaria[2] == null){
             jLabel11.setVisible(false);
         }else{
-            jLabel11.setText(Libros[2]);
+            jLabel11.setVisible(true);
+            jLabel11.setText(LibrosPrimaria[2].split(",")[1]);
         }
         
-        if(Libros[3] == null){
+        if(LibrosPrimaria[3] == null){
             jLabel12.setVisible(false);
         }else{
-            jLabel12.setText(Libros[3]);
+            jLabel12.setVisible(true);
+            jLabel12.setText(LibrosPrimaria[3].split(",")[1]);
         }
         
-        if(Libros[4] == null){
+        if(LibrosPrimaria[4] == null){
             jLabel13.setVisible(false);
         }else{
-            jLabel13.setText(Libros[4]);
+            jLabel13.setVisible(true);
+            jLabel13.setText(LibrosPrimaria[4].split(",")[1]);
         } 
         
     }
     
     public void MostrarPorSimilitud()
     {
-        String[] Libros = new String[5];
-        
-        Libros = BookNext.RecomendacionPorSimilitud(id_usuario);
+        LibrosSimilitud = null;
+        LibrosSimilitud = BookNext.RecomendacionPorSimilitud(id_usuario);
                 
-        if(Libros[0] == null){
+        if(LibrosSimilitud[0] == null){
             jLabel9.setVisible(false);
         }else{
-            jLabel9.setText(Libros[0]);
+            jLabel9.setVisible(true);
+            jLabel9.setText(LibrosSimilitud[0].split(",")[1]);
         }
         
-        if(Libros[1] == null){
+        if(LibrosSimilitud[1] == null){
             jLabel10.setVisible(false);
         }else{
-            jLabel10.setText(Libros[1]);
+            jLabel10.setVisible(true);
+            jLabel10.setText(LibrosSimilitud[1].split(",")[1]);
         }
         
-        if(Libros[2] == null){
+        if(LibrosSimilitud[2] == null){
             jLabel11.setVisible(false);
         }else{
-            jLabel11.setText(Libros[2]);
+            jLabel11.setVisible(true);
+            jLabel11.setText(LibrosSimilitud[2].split(",")[1]);
         }
         
-        if(Libros[3] == null){
+        if(LibrosSimilitud[3] == null){
             jLabel12.setVisible(false);
         }else{
-            jLabel12.setText(Libros[3]);
+            jLabel12.setVisible(true);
+            jLabel12.setText(LibrosSimilitud[3].split(",")[1]);
         }
         
-        if(Libros[4] == null){
+        if(LibrosSimilitud[4] == null){
             jLabel13.setVisible(false);
         }else{
-            jLabel13.setText(Libros[4]);
+            jLabel13.setVisible(true);
+            jLabel13.setText(LibrosSimilitud[4].split(",")[1]);
         } 
         
     }
     
     public void MostrarPorAprendizaje()
     {
-        String[] Libros = new String[5];
-        
-        Libros = BookNext.RecomendacionPorAprendizaje(id_usuario);
+        LibrosAprendizaje = null;       
+        LibrosAprendizaje = BookNext.RecomendacionPorAprendizaje(id_usuario);
                 
-        if(Libros[0] == null){
+        if(LibrosAprendizaje[0] == null){
             jLabel14.setVisible(false);
         }else{
-            jLabel14.setText(Libros[0]);
+            jLabel14.setVisible(true);
+            jLabel14.setText(LibrosAprendizaje[0].split(",")[1]);
         }
         
-        if(Libros[1] == null){
+        if(LibrosAprendizaje[1] == null){
             jLabel15.setVisible(false);
         }else{
-            jLabel15.setText(Libros[1]);
+            jLabel15.setVisible(true);
+            jLabel15.setText(LibrosAprendizaje[1].split(",")[1]);
         }
         
-        if(Libros[2] == null){
+        if(LibrosAprendizaje[2] == null){
             jLabel16.setVisible(false);
         }else{
-            jLabel16.setText(Libros[2]);
+            jLabel16.setVisible(true);
+            jLabel16.setText(LibrosAprendizaje[2].split(",")[1]);
         }
         
-        if(Libros[3] == null){
+        if(LibrosAprendizaje[3] == null){
             jLabel17.setVisible(false);
         }else{
-            jLabel17.setText(Libros[3]);
+            jLabel17.setVisible(true);
+            jLabel17.setText(LibrosAprendizaje[3].split(",")[1]);
         }
         
-        if(Libros[4] == null){
+        if(LibrosAprendizaje[4] == null){
             jLabel18.setVisible(false);
         }else{
-            jLabel18.setText(Libros[4]);
-        } 
-        
+            jLabel18.setVisible(true);
+            jLabel18.setText(LibrosAprendizaje[4].split(",")[1]);
+        }         
     }
     
     public void MostrarCarretilla()
     {        
+        LibrosCarretilla = null;
         LibrosCarretilla = BookNext.TraerCarretilla(id_usuario);
                 
         if(LibrosCarretilla[0] == null){
             jLabel19.setVisible(false);
             tb_punteo1.setVisible(false);
         }else{
+            jLabel19.setVisible(true);
+            tb_punteo1.setVisible(true);
             jLabel19.setText(LibrosCarretilla[0].split(",")[1]);
         }
         
@@ -175,6 +197,8 @@ public class Principal extends javax.swing.JFrame {
             jLabel20.setVisible(false);
             jTextField2.setVisible(false);
         }else{
+            jLabel20.setVisible(true);
+            jTextField2.setVisible(true);
             jLabel20.setText(LibrosCarretilla[1].split(",")[1]);
         }
         
@@ -182,6 +206,8 @@ public class Principal extends javax.swing.JFrame {
             jLabel21.setVisible(false);
             jTextField3.setVisible(false);
         }else{
+            jLabel21.setVisible(true);
+            jTextField3.setVisible(true);
             jLabel21.setText(LibrosCarretilla[2].split(",")[1]);
         }
         
@@ -189,6 +215,8 @@ public class Principal extends javax.swing.JFrame {
             jLabel22.setVisible(false);
             jTextField4.setVisible(false);
         }else{
+            jLabel22.setVisible(true);
+            jTextField4.setVisible(true);
             jLabel22.setText(LibrosCarretilla[3].split(",")[1]);
         }
         
@@ -196,6 +224,8 @@ public class Principal extends javax.swing.JFrame {
             jLabel23.setVisible(false);
             jTextField5.setVisible(false);
         }else{
+            jLabel23.setVisible(true);
+            jTextField5.setVisible(true);
             jLabel23.setText(LibrosCarretilla[4].split(",")[1]);
         } 
         
@@ -219,11 +249,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        tb_agregar1 = new javax.swing.JButton();
+        tb_agregar2 = new javax.swing.JButton();
+        tb_agregar3 = new javax.swing.JButton();
+        tb_agregar4 = new javax.swing.JButton();
+        tb_agregar5 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -246,11 +276,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        tb_agregar6 = new javax.swing.JButton();
+        tb_agregar7 = new javax.swing.JButton();
+        tb_agregar8 = new javax.swing.JButton();
+        tb_agregar9 = new javax.swing.JButton();
+        tb_agregar10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -284,20 +314,40 @@ public class Principal extends javax.swing.JFrame {
         jLabel13.setText("Libro5");
         jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton7.setText("Agregar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        tb_agregar1.setText("Agregar");
+        tb_agregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                tb_agregar1ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Agregar");
+        tb_agregar2.setText("Agregar");
+        tb_agregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar2ActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("Agregar");
+        tb_agregar3.setText("Agregar");
+        tb_agregar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar3ActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Agregar");
+        tb_agregar4.setText("Agregar");
+        tb_agregar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar4ActionPerformed(evt);
+            }
+        });
 
-        jButton11.setText("Agregar");
+        tb_agregar5.setText("Agregar");
+        tb_agregar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -307,7 +357,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -315,13 +365,13 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,11 +395,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11))
+                    .addComponent(tb_agregar1)
+                    .addComponent(tb_agregar2)
+                    .addComponent(tb_agregar3)
+                    .addComponent(tb_agregar4)
+                    .addComponent(tb_agregar5))
                 .addContainerGap())
         );
 
@@ -488,15 +538,20 @@ public class Principal extends javax.swing.JFrame {
         jLabel18.setText("Libro5");
         jLabel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton12.setText("Agregar");
+        tb_agregar6.setText("Agregar");
+        tb_agregar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar6ActionPerformed(evt);
+            }
+        });
 
-        jButton13.setText("Agregar");
+        tb_agregar7.setText("Agregar");
 
-        jButton14.setText("Agregar");
+        tb_agregar8.setText("Agregar");
 
-        jButton15.setText("Agregar");
+        tb_agregar9.setText("Agregar");
 
-        jButton16.setText("Agregar");
+        tb_agregar10.setText("Agregar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -506,7 +561,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -514,13 +569,13 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tb_agregar10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,11 +599,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton12)
-                    .addComponent(jButton13)
-                    .addComponent(jButton14)
-                    .addComponent(jButton15)
-                    .addComponent(jButton16))
+                    .addComponent(tb_agregar6)
+                    .addComponent(tb_agregar7)
+                    .addComponent(tb_agregar8)
+                    .addComponent(tb_agregar9)
+                    .addComponent(tb_agregar10))
                 .addContainerGap())
         );
 
@@ -615,6 +670,7 @@ public class Principal extends javax.swing.JFrame {
             else
             {
                 JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+                RecalcularPuntajeLibro();
                 MostrarCarretilla();   
             }       
     }//GEN-LAST:event_jButton17ActionPerformed
@@ -689,10 +745,114 @@ public class Principal extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_tb_punteo5ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void tb_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar1ActionPerformed
         //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
-        //VALUES (NULL,id_libro,id_usuario,b'0','0','1','');
-    }//GEN-LAST:event_jButton7ActionPerformed
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[0].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar1ActionPerformed
+
+    private void tb_agregar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tb_agregar6ActionPerformed
+
+    private void tb_agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar2ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[1].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar2ActionPerformed
+
+    private void tb_agregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar3ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[2].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar3ActionPerformed
+
+    private void tb_agregar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar4ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[3].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar4ActionPerformed
+
+    private void tb_agregar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar5ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[4].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -731,17 +891,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -766,6 +916,16 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton tb_agregar1;
+    private javax.swing.JButton tb_agregar10;
+    private javax.swing.JButton tb_agregar2;
+    private javax.swing.JButton tb_agregar3;
+    private javax.swing.JButton tb_agregar4;
+    private javax.swing.JButton tb_agregar5;
+    private javax.swing.JButton tb_agregar6;
+    private javax.swing.JButton tb_agregar7;
+    private javax.swing.JButton tb_agregar8;
+    private javax.swing.JButton tb_agregar9;
     private javax.swing.JTextField tb_punteo1;
     private javax.swing.JButton tb_punteo2;
     private javax.swing.JButton tb_punteo3;

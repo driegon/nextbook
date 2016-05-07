@@ -22,7 +22,7 @@ public class BookNext {
         // TODO code application logic here
     }
     
-    public static int ObtenerAñoNac(int id)
+    private static int ObtenerAñoNac(int id)
     {
         conexion bdd = new conexion();
         ResultSet resultado = null;
@@ -53,7 +53,7 @@ public class BookNext {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
-        resultado = bdd.consulta("SELECT l.titulo FROM carretilla c " +
+        resultado = bdd.consulta("SELECT l.titulo, c.id_libro FROM carretilla c " +
         "INNER JOIN libro l on (c.id_libro = l.id) " +
         "WHERE estatus = 1 " +
         "AND c.id_usuario IN " +
@@ -62,13 +62,16 @@ public class BookNext {
         "    and YEAR(u.fecha_nacimiento) BETWEEN " 
                 + (AñoNac - 5) + " and " + (AñoNac + 5)
                 + ") /*rango +-5 de la fecha del usuario*/ " +
-        "ORDER by c.leído DESC, c.punteo DESC LIMIT 5");
+        "AND c.id_libro not IN " +
+        "    (SELECT ca.id_libro from carretilla ca " +
+        "    where ca.id_usuario in ("+ id + ")) /*se descartan los que tiene en carretilla*/" +
+        "ORDER by c.leido DESC, c.punteo DESC LIMIT 5");
                
         int contador = 0;
         
         try{
             while (resultado.next()) {
-                Libros[contador] = resultado.getString("titulo");
+                Libros[contador] = resultado.getString("id_libro") + "," + resultado.getString("titulo");                
                 contador++;                
             }
             resultado.close();
@@ -113,16 +116,16 @@ public class BookNext {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
-        resultado = bdd.consulta("SELECT l.titulo FROM carretilla c " +
+        resultado = bdd.consulta("SELECT l.titulo, c.id FROM carretilla c " +
         "INNER JOIN libro l on (c.id_libro = l.id) " +
-        "WHERE id_usuario = " + id + " and leído = 0 and estatus = 1 " +
+        "WHERE id_usuario = " + id + " and leido = 0 and estatus = 1 " +
         "ORDER by c.id DESC LIMIT 5 ");
         
         int contador = 0;
         
         try{
             while (resultado.next()) {
-                Libros[contador] = resultado.getString("titulo");
+                Libros[contador] = resultado.getString("id") + "," + resultado.getString("titulo");
                 contador++;                
             }
             resultado.close();
