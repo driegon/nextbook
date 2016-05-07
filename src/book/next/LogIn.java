@@ -7,6 +7,7 @@ package book.next;
 import basededatos.conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,10 +35,10 @@ public class LogIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tb_usuario = new javax.swing.JTextField();
-        tb_password = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        tb_password = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,10 +48,6 @@ public class LogIn extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tb_usuario.setText("dorozco");
-
-        tb_password.setText("********");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Usuario:");
@@ -75,11 +72,10 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tb_usuario)
-                        .addComponent(tb_password, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                    .addComponent(tb_usuario)
+                    .addComponent(tb_password, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -91,29 +87,34 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tb_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(tb_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jButton2.setText("Crear Usuario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton2)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(27, 27, 27)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(79, 79, 79)
-                            .addComponent(jLabel1))))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel1)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,14 +146,24 @@ public class LogIn extends javax.swing.JFrame {
             while (resultado.next()){
                 contador++;
             }
-            resultado.close();
         }catch(SQLException ex)
         {
             System.out.println("SQLException: "+ ex.getMessage());        
         }
+        
+        //bdd.cerrarConexion();
 
         if (contador > 0)
         {
+            //conexion bdd2 = new conexion();
+            String retorno = "";
+            retorno = bdd.ejecutarQuery("UPDATE usuario SET password = 'diego123' WHERE usuario = 'dgutierrez'");
+            
+            if (retorno.compareTo("") != 0)
+            {
+                JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            }
+            
             // TODO add your handling code here:
             Principal FrmPrincipal= new Principal();//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
 
@@ -164,7 +175,17 @@ public class LogIn extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta", "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
+        
+        bdd.cerrarConexion();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Usuario FrmNuevoUsuario = new Usuario();//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
+        
+        FrmNuevoUsuario.setVisible(true); //muestra el segundo jFrame
+
+        this.setVisible(false);//oculta el jFrame que estes usando
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,7 +229,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tb_password;
+    private javax.swing.JPasswordField tb_password;
     private javax.swing.JTextField tb_usuario;
     // End of variables declaration//GEN-END:variables
 }
