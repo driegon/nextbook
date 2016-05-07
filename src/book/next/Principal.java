@@ -163,30 +163,35 @@ public class Principal extends javax.swing.JFrame {
                 
         if(Libros[0] == null){
             jLabel19.setVisible(false);
+            jTextField1.setVisible(false);
         }else{
             jLabel19.setText(Libros[0]);
         }
         
         if(Libros[1] == null){
             jLabel20.setVisible(false);
+            jTextField2.setVisible(false);
         }else{
             jLabel20.setText(Libros[1]);
         }
         
         if(Libros[2] == null){
             jLabel21.setVisible(false);
+            jTextField3.setVisible(false);
         }else{
             jLabel21.setText(Libros[2]);
         }
         
         if(Libros[3] == null){
             jLabel22.setVisible(false);
+            jTextField4.setVisible(false);
         }else{
             jLabel22.setText(Libros[3]);
         }
         
         if(Libros[4] == null){
             jLabel23.setVisible(false);
+            jTextField5.setVisible(false);
         }else{
             jLabel23.setText(Libros[4]);
         } 
@@ -358,6 +363,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel23.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton17.setText("Leído");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setText("Leído");
 
@@ -563,6 +573,12 @@ public class Principal extends javax.swing.JFrame {
 
         FrmBuscador.setVisible(true); //muestra el segundo jFrame
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        //Agregar a leído
+        
+        
+    }//GEN-LAST:event_jButton17ActionPerformed
 
     /**
      * @param args the command line arguments
