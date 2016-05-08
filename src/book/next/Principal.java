@@ -6,6 +6,8 @@
 package book.next;
 
 import basededatos.conexion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +21,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public int id_usuario = 0;
     String[] LibrosCarretilla = new String[5];
-    String[] LibrosPrimaria = new String[5];
-    String[] LibrosSimilitud = new String[5];
+    String[] LibrosRecomendacion = new String[5];
+    //String[] LibrosRecomendacion = new String[5];
+    //String[] LibrosRecomendacion = new String[5];
     String[] LibrosAprendizaje = new String[5];
     conexion bdd = new conexion();
     
@@ -35,9 +38,43 @@ public class Principal extends javax.swing.JFrame {
         MostrarCarretilla();   
     }
 
-    public void RecalcularPuntajeLibro()
+    public void RecalcularPuntajeLibro(String Punteo, String id_Carretilla)
     {
-        //Se recalcula el punteo del libro en base al puesto por el usuario
+        //Se recalcula el punteo del libro en base al puesto por el usuario        
+        //Agregar a leído                
+        String retorno = "";
+        int Promedio = 0; 
+        int Lectores = 0; 
+        int id_Libro = 0;         
+        ResultSet resultado = null;
+        
+        //consulta en Libro los datos del libro a partir del id_carretilla
+        resultado = bdd.consulta("SELECT l.id, l.Punteo, l.Lectores FROM carretilla c " +
+        "INNER JOIN libro l on (l.id = c.id_libro) " + " WHERE c.id = " + id_Carretilla);
+               
+        try{
+            while (resultado.next()) {
+                Promedio = resultado.getInt("Punteo");
+                Lectores = resultado.getInt("Lectores");
+                id_Libro = resultado.getInt("id");
+            }
+            resultado.close();
+        }catch(SQLException ex)
+        {
+            System.out.println("SQLException: "+ ex.getMessage());        
+        }               
+        
+        Lectores = Lectores + 1;
+        Promedio = (Promedio + Integer.parseInt(Punteo));
+        Promedio = Promedio / Lectores;
+        
+        retorno = bdd.ejecutarQuery("UPDATE libro SET Punteo = " + Promedio
+            + ", Lectores = " + Lectores + " WHERE id = " + id_Libro);              
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }                    
     }
     
     public void  MostrarRecomendacion()
@@ -55,85 +92,85 @@ public class Principal extends javax.swing.JFrame {
     
     public void MostrarPrimaria()
     {   
-        LibrosPrimaria = null;
-        LibrosPrimaria = BookNext.RecomendacionPrimaria(id_usuario);
+        LibrosRecomendacion = null;
+        LibrosRecomendacion = BookNext.RecomendacionPrimaria(id_usuario);
                 
-        if(LibrosPrimaria[0] == null){
+        if(LibrosRecomendacion[0] == null){
             jLabel9.setVisible(false);
             //jButton7.disable();
         }else{
             jLabel9.setVisible(true);
-            jLabel9.setText(LibrosPrimaria[0].split(",")[1]);
+            jLabel9.setText(LibrosRecomendacion[0].split(",")[1]);
         }
         
-        if(LibrosPrimaria[1] == null){
+        if(LibrosRecomendacion[1] == null){
             jLabel10.setVisible(false);
         }else{
             jLabel10.setVisible(true);
-            jLabel10.setText(LibrosPrimaria[1].split(",")[1]);
+            jLabel10.setText(LibrosRecomendacion[1].split(",")[1]);
         }
         
-        if(LibrosPrimaria[2] == null){
+        if(LibrosRecomendacion[2] == null){
             jLabel11.setVisible(false);
         }else{
             jLabel11.setVisible(true);
-            jLabel11.setText(LibrosPrimaria[2].split(",")[1]);
+            jLabel11.setText(LibrosRecomendacion[2].split(",")[1]);
         }
         
-        if(LibrosPrimaria[3] == null){
+        if(LibrosRecomendacion[3] == null){
             jLabel12.setVisible(false);
         }else{
             jLabel12.setVisible(true);
-            jLabel12.setText(LibrosPrimaria[3].split(",")[1]);
+            jLabel12.setText(LibrosRecomendacion[3].split(",")[1]);
         }
         
-        if(LibrosPrimaria[4] == null){
+        if(LibrosRecomendacion[4] == null){
             jLabel13.setVisible(false);
         }else{
             jLabel13.setVisible(true);
-            jLabel13.setText(LibrosPrimaria[4].split(",")[1]);
+            jLabel13.setText(LibrosRecomendacion[4].split(",")[1]);
         } 
         
     }
     
     public void MostrarPorSimilitud()
     {
-        LibrosSimilitud = null;
-        LibrosSimilitud = BookNext.RecomendacionPorSimilitud(id_usuario);
+        LibrosRecomendacion = null;
+        LibrosRecomendacion = BookNext.RecomendacionPorSimilitud(id_usuario);
                 
-        if(LibrosSimilitud[0] == null){
+        if(LibrosRecomendacion[0] == null){
             jLabel9.setVisible(false);
         }else{
             jLabel9.setVisible(true);
-            jLabel9.setText(LibrosSimilitud[0].split(",")[1]);
+            jLabel9.setText(LibrosRecomendacion[0].split(",")[1]);
         }
         
-        if(LibrosSimilitud[1] == null){
+        if(LibrosRecomendacion[1] == null){
             jLabel10.setVisible(false);
         }else{
             jLabel10.setVisible(true);
-            jLabel10.setText(LibrosSimilitud[1].split(",")[1]);
+            jLabel10.setText(LibrosRecomendacion[1].split(",")[1]);
         }
         
-        if(LibrosSimilitud[2] == null){
+        if(LibrosRecomendacion[2] == null){
             jLabel11.setVisible(false);
         }else{
             jLabel11.setVisible(true);
-            jLabel11.setText(LibrosSimilitud[2].split(",")[1]);
+            jLabel11.setText(LibrosRecomendacion[2].split(",")[1]);
         }
         
-        if(LibrosSimilitud[3] == null){
+        if(LibrosRecomendacion[3] == null){
             jLabel12.setVisible(false);
         }else{
             jLabel12.setVisible(true);
-            jLabel12.setText(LibrosSimilitud[3].split(",")[1]);
+            jLabel12.setText(LibrosRecomendacion[3].split(",")[1]);
         }
         
-        if(LibrosSimilitud[4] == null){
+        if(LibrosRecomendacion[4] == null){
             jLabel13.setVisible(false);
         }else{
             jLabel13.setVisible(true);
-            jLabel13.setText(LibrosSimilitud[4].split(",")[1]);
+            jLabel13.setText(LibrosRecomendacion[4].split(",")[1]);
         } 
         
     }
@@ -546,12 +583,32 @@ public class Principal extends javax.swing.JFrame {
         });
 
         tb_agregar7.setText("Agregar");
+        tb_agregar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar7ActionPerformed(evt);
+            }
+        });
 
         tb_agregar8.setText("Agregar");
+        tb_agregar8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar8ActionPerformed(evt);
+            }
+        });
 
         tb_agregar9.setText("Agregar");
+        tb_agregar9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar9ActionPerformed(evt);
+            }
+        });
 
         tb_agregar10.setText("Agregar");
+        tb_agregar10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_agregar10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -652,16 +709,24 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buscador FrmBuscador= new Buscador();//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
+        Buscador FrmBuscador= new Buscador(id_usuario);//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
 
         FrmBuscador.setVisible(true); //muestra el segundo jFrame
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        //Agregar a leído                
+            
+        if(tb_punteo1.getText().isEmpty() == true)
+        {
+            JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
+                    "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            //Agregar a leído                
             String retorno = "";
             retorno = bdd.ejecutarQuery("update carretilla set leido = 1, Fecha_leido = now(), punteo = "
-                    + tb_punteo1.getText() + " where id = " + LibrosCarretilla[0].split(",")[0]);
+                    + tb_punteo1.getText() + " where id = " + LibrosCarretilla[0].split(",")[0]);              
             
             if (retorno.compareTo("") != 0)
             {
@@ -669,18 +734,26 @@ public class Principal extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-                RecalcularPuntajeLibro();
-                MostrarCarretilla();   
+                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);                
+                RecalcularPuntajeLibro(tb_punteo1.getText(), LibrosCarretilla[0].split(",")[0]);
+                tb_punteo1.setText("");
+                MostrarCarretilla();                   
             }       
+        }            
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void tb_punteo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo2ActionPerformed
-        // TODO add your handling code here:
-        //Agregar a leído                
+        if(tb_punteo2.getText().isEmpty() == true)
+        {
+            JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
+                    "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            //Agregar a leído                
             String retorno = "";
             retorno = bdd.ejecutarQuery("update carretilla set leido = 1, Fecha_leido = now(), punteo = "
-                    + tb_punteo2.getText() + " where id = " + LibrosCarretilla[1].split(",")[0]);
+                    + tb_punteo2.getText() + " where id = " + LibrosCarretilla[1].split(",")[0]);              
             
             if (retorno.compareTo("") != 0)
             {
@@ -688,16 +761,26 @@ public class Principal extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-                MostrarCarretilla();   
-            }
+                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);                
+                RecalcularPuntajeLibro(tb_punteo2.getText(), LibrosCarretilla[1].split(",")[0]);
+                tb_punteo2.setText("");
+                MostrarCarretilla();                   
+            }       
+        } 
     }//GEN-LAST:event_tb_punteo2ActionPerformed
 
     private void tb_punteo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo3ActionPerformed
-        //Agregar a leído                
+        if(tb_punteo3.getText().isEmpty() == true)
+        {
+            JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
+                    "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            //Agregar a leído                
             String retorno = "";
             retorno = bdd.ejecutarQuery("update carretilla set leido = 1, Fecha_leido = now(), punteo = "
-                    + tb_punteo3.getText() + " where id = " + LibrosCarretilla[2].split(",")[0]);
+                    + tb_punteo3.getText() + " where id = " + LibrosCarretilla[2].split(",")[0]);              
             
             if (retorno.compareTo("") != 0)
             {
@@ -705,17 +788,26 @@ public class Principal extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-                MostrarCarretilla();   
-            }
-        
+                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);                
+                RecalcularPuntajeLibro(tb_punteo3.getText(), LibrosCarretilla[2].split(",")[0]);
+                tb_punteo3.setText("");
+                MostrarCarretilla();                   
+            }       
+        } 
     }//GEN-LAST:event_tb_punteo3ActionPerformed
 
     private void tb_punteo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo4ActionPerformed
-        //Agregar a leído                
+        if(tb_punteo4.getText().isEmpty() == true)
+        {
+            JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
+                    "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            //Agregar a leído                
             String retorno = "";
             retorno = bdd.ejecutarQuery("update carretilla set leido = 1, Fecha_leido = now(), punteo = "
-                    + tb_punteo4.getText() + " where id = " + LibrosCarretilla[3].split(",")[0]);
+                    + tb_punteo4.getText() + " where id = " + LibrosCarretilla[3].split(",")[0]);              
             
             if (retorno.compareTo("") != 0)
             {
@@ -723,16 +815,26 @@ public class Principal extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-                MostrarCarretilla();   
-            }
+                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);                
+                RecalcularPuntajeLibro(tb_punteo4.getText(), LibrosCarretilla[3].split(",")[0]);
+                tb_punteo4.setText("");
+                MostrarCarretilla();                   
+            }       
+        } 
     }//GEN-LAST:event_tb_punteo4ActionPerformed
 
     private void tb_punteo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo5ActionPerformed
-        //Agregar a leído                
+        if(tb_punteo5.getText().isEmpty() == true)
+        {
+            JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
+                    "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            //Agregar a leído                
             String retorno = "";
             retorno = bdd.ejecutarQuery("update carretilla set leido = 1, Fecha_leido = now(), punteo = "
-                    + tb_punteo5.getText() + " where id = " + LibrosCarretilla[4].split(",")[0]);
+                    + tb_punteo5.getText() + " where id = " + LibrosCarretilla[4].split(",")[0]);              
             
             if (retorno.compareTo("") != 0)
             {
@@ -740,9 +842,12 @@ public class Principal extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-                MostrarCarretilla();   
-            }
+                JOptionPane.showMessageDialog(null, "¡Libro leído!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);                
+                RecalcularPuntajeLibro(tb_punteo5.getText(), LibrosCarretilla[4].split(",")[0]);
+                tb_punteo5.setText("");
+                MostrarCarretilla();                   
+            }       
+        }
     }//GEN-LAST:event_tb_punteo5ActionPerformed
 
     private void tb_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar1ActionPerformed
@@ -750,7 +855,7 @@ public class Principal extends javax.swing.JFrame {
         //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
         String retorno = "";
         retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
-                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[0].split(",")[0] 
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosRecomendacion[0].split(",")[0] 
                 + ", 0, 0, 1, '0000-00-00 00:00:00')");        
         
 
@@ -767,7 +872,24 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_tb_agregar1ActionPerformed
 
     private void tb_agregar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar6ActionPerformed
-        // TODO add your handling code here:
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosAprendizaje[0].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
     }//GEN-LAST:event_tb_agregar6ActionPerformed
 
     private void tb_agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar2ActionPerformed
@@ -775,7 +897,7 @@ public class Principal extends javax.swing.JFrame {
         //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
         String retorno = "";
         retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
-                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[1].split(",")[0] 
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosRecomendacion[1].split(",")[0] 
                 + ", 0, 0, 1, '0000-00-00 00:00:00')");        
         
 
@@ -796,7 +918,7 @@ public class Principal extends javax.swing.JFrame {
         //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
         String retorno = "";
         retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
-                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[2].split(",")[0] 
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosRecomendacion[2].split(",")[0] 
                 + ", 0, 0, 1, '0000-00-00 00:00:00')");        
         
 
@@ -817,7 +939,7 @@ public class Principal extends javax.swing.JFrame {
         //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
         String retorno = "";
         retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
-                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[3].split(",")[0] 
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosRecomendacion[3].split(",")[0] 
                 + ", 0, 0, 1, '0000-00-00 00:00:00')");        
         
 
@@ -838,7 +960,7 @@ public class Principal extends javax.swing.JFrame {
         //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
         String retorno = "";
         retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
-                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosPrimaria[4].split(",")[0] 
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosRecomendacion[4].split(",")[0] 
                 + ", 0, 0, 1, '0000-00-00 00:00:00')");        
         
 
@@ -853,6 +975,90 @@ public class Principal extends javax.swing.JFrame {
             MostrarCarretilla();
         }
     }//GEN-LAST:event_tb_agregar5ActionPerformed
+
+    private void tb_agregar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar7ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosAprendizaje[1].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar7ActionPerformed
+
+    private void tb_agregar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar8ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosAprendizaje[2].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar8ActionPerformed
+
+    private void tb_agregar9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar9ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosAprendizaje[3].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar9ActionPerformed
+
+    private void tb_agregar10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar10ActionPerformed
+        //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
+        //VALUES (NULL,id_usuario,id_libro,b'0','0','1','');
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + LibrosAprendizaje[4].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");        
+        
+
+        if (retorno.compareTo("") != 0)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            MostrarRecomendacion();   
+            MostrarCarretilla();
+        }
+    }//GEN-LAST:event_tb_agregar10ActionPerformed
 
     /**
      * @param args the command line arguments

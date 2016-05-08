@@ -63,8 +63,9 @@ public class Buscador extends javax.swing.JFrame {
         btn_agregar4 = new javax.swing.JButton();
         btn_agregar5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Búsqueda");
+        setName("Búsqueda"); // NOI18N
+        setType(java.awt.Window.Type.POPUP);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -82,7 +83,9 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setName(""); // NOI18N
 
+        cb_titulo.setSelected(true);
         cb_titulo.setText("Titulo");
         cb_titulo.setActionCommand("Título");
 
@@ -170,20 +173,40 @@ public class Buscador extends javax.swing.JFrame {
             tabla_resultados.getColumnModel().getColumn(3).setPreferredWidth(1);
         }
 
-        btn_agregar1.setText("Agregar 1");
+        btn_agregar1.setText("Agregar #1");
         btn_agregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregar1ActionPerformed(evt);
             }
         });
 
-        btn_agregar2.setText("Agregar 2");
+        btn_agregar2.setText("Agregar #2");
+        btn_agregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregar2ActionPerformed(evt);
+            }
+        });
 
-        btn_agregar3.setText("Agregar 3");
+        btn_agregar3.setText("Agregar #3");
+        btn_agregar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregar3ActionPerformed(evt);
+            }
+        });
 
-        btn_agregar4.setText("Agregar 4");
+        btn_agregar4.setText("Agregar #4");
+        btn_agregar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregar4ActionPerformed(evt);
+            }
+        });
 
-        btn_agregar5.setText("Agregar 5");
+        btn_agregar5.setText("Agregar #5");
+        btn_agregar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregar5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,6 +264,8 @@ public class Buscador extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleName("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -260,7 +285,7 @@ public class Buscador extends javax.swing.JFrame {
                     tabla_resultados.setValueAt(resultado.getString("titulo"), contador, 1);
                     tabla_resultados.setValueAt(resultado.getString("nombre_autor"), contador, 2);
                     tabla_resultados.setValueAt(resultado.getString("punteo"), contador, 3);
-                    listaLibros[contador] = resultado.getString("id");
+                    listaLibros[contador] = resultado.getString("id") + "," + resultado.getString("titulo");
                     contador++;
                 }
                 resultado.close();
@@ -284,21 +309,17 @@ public class Buscador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
-    private void agregarEstadistica(int numeroLibro)
+    private void agregarEstadistica(int posicionListaLibro)
     {
         /* Agregar a estadísticas */
         String retorno = "";
         String query = "INSERT INTO recomendacion (id, id_libro, fec_transac, id_usuario) "
-                + "VALUES (NULL, "+listaLibros[numeroLibro]+", CURRENT_TIMESTAMP, "+id_usuario+")";
+                + "VALUES (NULL, "+listaLibros[posicionListaLibro].split(",")[0]+", CURRENT_TIMESTAMP, "+id_usuario+")";
         retorno = bdd.ejecutarQuery(query);      
 
         if (retorno.compareTo("") != 0)
         {
-            JOptionPane.showMessageDialog(null, "ERROR: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "¡Libro agregado a Carretilla!", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR agregando estadística: "+retorno, "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
         
         bdd.cerrarConexion();
@@ -309,19 +330,92 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btn_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar1ActionPerformed
-        if(agregarACarretilla() == true)
+        int libroElegido = 0;
+        if(agregarACarretilla(libroElegido) == true)
         {
-            JOptionPane.showMessageDialog(null, "Se agregó correctamente el libro a tu carretilla", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
+                    listaLibros[libroElegido].split(",")[1] +"</i> a tu carretilla</html>", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar " + 
+                    listaLibros[libroElegido].split(",")[1] +" a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_agregar1ActionPerformed
 
-    private Boolean agregarACarretilla()
+    private void btn_agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar2ActionPerformed
+        int libroElegido = 1;
+        if(agregarACarretilla(libroElegido) == true)
+        {
+            JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
+                    listaLibros[libroElegido].split(",")[1] +"</i> a tu carretilla</html>", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar " + 
+                    listaLibros[libroElegido].split(",")[1] +" a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar2ActionPerformed
+
+    private void btn_agregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar3ActionPerformed
+        int libroElegido = 3;
+        if(agregarACarretilla(libroElegido) == true)
+        {
+            JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
+                    listaLibros[libroElegido].split(",")[1] +"</i> a tu carretilla</html>", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar " + 
+                    listaLibros[libroElegido].split(",")[1] +" a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar3ActionPerformed
+
+    private void btn_agregar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar4ActionPerformed
+        int libroElegido = 4;
+        if(agregarACarretilla(libroElegido) == true)
+        {
+            JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
+                    listaLibros[libroElegido].split(",")[1] +"</i> a tu carretilla</html>", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar " + 
+                    listaLibros[libroElegido].split(",")[1] +" a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar4ActionPerformed
+
+    private void btn_agregar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar5ActionPerformed
+        int libroElegido = 5;
+        if(agregarACarretilla(libroElegido) == true)
+        {
+            JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
+                    listaLibros[libroElegido].split(",")[1] +"</i> a tu carretilla</html>", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar " + 
+                    listaLibros[libroElegido].split(",")[1] +" a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar5ActionPerformed
+
+    private Boolean agregarACarretilla(int posicionListaLibro)
     {
-        return true;
+        boolean exitoso = false;
+        String retorno = "";
+        retorno = bdd.ejecutarQuery("INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, "
+                + "Fecha_leido) VALUES (NULL, " + id_usuario + ", " + listaLibros[posicionListaLibro].split(",")[0] 
+                + ", 0, 0, 1, '0000-00-00 00:00:00')");
+
+        if (retorno.compareTo("") != 0)
+        {
+            exitoso = false;
+        }
+        else
+        {
+            exitoso = true;
+        }
+        return exitoso;
     }
     
     /**
@@ -493,7 +587,7 @@ public class Buscador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Buscador().setVisible(true);
+                new Buscador(0).setVisible(true);
             }
         });
     }

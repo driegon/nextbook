@@ -100,11 +100,11 @@ public class BookNext {
     {
         String[] Libros = new String[5];
         
-        Libros[0]= "La Bella y la Bestia";
-        Libros[1]= "Fisica Fundamental";
-        Libros[2]= "Gramatica";
-        Libros[3]= "";
-        Libros[4]= "";
+        Libros[0]= "0,La Bella y la Bestia";
+        Libros[1]= "1,Fisica Fundamental";
+        Libros[2]= "2,Gramatica";
+        Libros[3]= null;
+        Libros[4]= null;
         
         return Libros;
     }

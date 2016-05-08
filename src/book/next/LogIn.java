@@ -5,6 +5,7 @@
  */
 package book.next;
 import basededatos.conexion;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -49,6 +50,11 @@ public class LogIn extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tb_usuario.setText("dorozco");
+        tb_usuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tb_usuarioFocusGained(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Usuario:");
@@ -64,6 +70,16 @@ public class LogIn extends javax.swing.JFrame {
         });
 
         tb_password.setText("deisy");
+        tb_password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tb_passwordFocusGained(evt);
+            }
+        });
+        tb_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tb_passwordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,8 +151,11 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           
+    /**
+     * Verifica el usuario y password ingresado previo a abrir el form principal
+     */
+    private void login()
+    {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
@@ -174,6 +193,10 @@ public class LogIn extends javax.swing.JFrame {
         }
         
         bdd.cerrarConexion();
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        login();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -184,6 +207,23 @@ public class LogIn extends javax.swing.JFrame {
 
         this.setVisible(false);//oculta el jFrame que estes usando
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tb_usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tb_usuarioFocusGained
+        // Selecciona el texto para ser fácilmente editable
+        tb_usuario.select(0, tb_usuario.getText().length());
+    }//GEN-LAST:event_tb_usuarioFocusGained
+
+    private void tb_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tb_passwordFocusGained
+        // Selecciona el texto para ser fácilmente editable
+        tb_password.select(0, tb_password.getText().length());
+    }//GEN-LAST:event_tb_passwordFocusGained
+
+    private void tb_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_passwordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+         }
+    }//GEN-LAST:event_tb_passwordKeyPressed
 
     /**
      * @param args the command line arguments
