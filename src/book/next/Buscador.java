@@ -284,22 +284,7 @@ public class Buscador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        limpiarTablaResultados();
-    }//GEN-LAST:event_formWindowOpened
-
-    private void btn_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar1ActionPerformed
-        if(agregarACarretilla(0) == true)
-        {
-            JOptionPane.showMessageDialog(null, "Se agregó correctamente el libro a tu carretilla", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btn_agregar1ActionPerformed
-
-    private Boolean agregarACarretilla(int numeroLibro)
+    private void agregarEstadistica(int numeroLibro)
     {
         /* Agregar a estadísticas */
         String retorno = "";
@@ -317,30 +302,58 @@ public class Buscador extends javax.swing.JFrame {
         }
         
         bdd.cerrarConexion();
-        return false;
     }
     
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        limpiarTablaResultados();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar1ActionPerformed
+        if(agregarACarretilla() == true)
+        {
+            JOptionPane.showMessageDialog(null, "Se agregó correctamente el libro a tu carretilla", "¡Atención!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar a tu carretilla", "¡Atención!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregar1ActionPerformed
+
+    private Boolean agregarACarretilla()
+    {
+        return true;
+    }
+    
+    /**
+     * Se habilitan botones para agregar a carretilla y se agregan las estadísticas de la búsqueda
+     * @param habilitables 
+     */
     private void habilitarBotones(int habilitables)
     {
         if(habilitables > 4)
         {
             btn_agregar5.setEnabled(true);
+            agregarEstadistica(4);
         }
         if(habilitables > 3)
         {
             btn_agregar4.setEnabled(true);
+            agregarEstadistica(3);
         }
         if(habilitables > 2)
         {
             btn_agregar3.setEnabled(true);
+            agregarEstadistica(2);
         }
         if(habilitables > 1)
         {
             btn_agregar2.setEnabled(true);
+            agregarEstadistica(1);
         }
         if(habilitables > 0)
         {
             btn_agregar1.setEnabled(true);
+            agregarEstadistica(0);
         }
     }
     
