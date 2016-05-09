@@ -80,13 +80,35 @@ public class Principal extends javax.swing.JFrame {
     public void  MostrarRecomendacion()
     {
         //Segun sea el caso se muestra la recomendacion adecuada        
-        //Si es usuario nuevo se muestra la primaria
-        MostrarPrimaria();
+        //Se consulta si es usuario nuevo, no debe tener recomendaciones (busquedas)
+        ResultSet resultado = null;
+        boolean EsNuevo = true;
         
-        //Si ya ha hecho búsquedas se muestra por similitud
-        //MostrarPorSimilitud();
+        //consulta en Libro los datos del libro a partir del id_carretilla
+        resultado = bdd.consulta("SELECT r.id_usuario FROM recomendacion r \n" +
+        "WHERE r.id_usuario in ("+ id_usuario + ")");
+                       
+        try{
+            while (resultado.next()) {
+                EsNuevo = false;
+            }
+            resultado.close();
+        }catch(SQLException ex)
+        {
+            System.out.println("SQLException: "+ ex.getMessage());        
+        }
+
+        //Si es usuario nuevo se muestra la primaria        
+        if(EsNuevo)
+        {
+            MostrarPrimaria();            
+        }
+        else //Si ya ha hecho búsquedas se muestra por similitud
+        {
+            MostrarPorSimilitud();
+        } 
         
-        //Si ya ha leído libros
+        //Si ya ha leído libros o tiene en carretilla
         MostrarPorAprendizaje();
     }
     
@@ -232,37 +254,37 @@ public class Principal extends javax.swing.JFrame {
         
         if(LibrosCarretilla[1] == null){
             jLabel20.setVisible(false);
-            jTextField2.setVisible(false);
+            tb_punteo2.setVisible(false);
         }else{
             jLabel20.setVisible(true);
-            jTextField2.setVisible(true);
+            tb_punteo2.setVisible(true);
             jLabel20.setText(LibrosCarretilla[1].split(",")[1]);
         }
         
         if(LibrosCarretilla[2] == null){
             jLabel21.setVisible(false);
-            jTextField3.setVisible(false);
+            tb_punteo3.setVisible(false);
         }else{
             jLabel21.setVisible(true);
-            jTextField3.setVisible(true);
+            tb_punteo3.setVisible(true);
             jLabel21.setText(LibrosCarretilla[2].split(",")[1]);
         }
         
         if(LibrosCarretilla[3] == null){
             jLabel22.setVisible(false);
-            jTextField4.setVisible(false);
+            tb_punteo4.setVisible(false);
         }else{
             jLabel22.setVisible(true);
-            jTextField4.setVisible(true);
+            tb_punteo4.setVisible(true);
             jLabel22.setText(LibrosCarretilla[3].split(",")[1]);
         }
         
         if(LibrosCarretilla[4] == null){
             jLabel23.setVisible(false);
-            jTextField5.setVisible(false);
+            tb_punteo5.setVisible(false);
         }else{
             jLabel23.setVisible(true);
-            jTextField5.setVisible(true);
+            tb_punteo5.setVisible(true);
             jLabel23.setText(LibrosCarretilla[4].split(",")[1]);
         } 
         
@@ -297,16 +319,16 @@ public class Principal extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jButton17 = new javax.swing.JButton();
-        tb_punteo2 = new javax.swing.JButton();
-        tb_punteo3 = new javax.swing.JButton();
-        tb_punteo4 = new javax.swing.JButton();
-        tb_punteo5 = new javax.swing.JButton();
+        bt_agregar11 = new javax.swing.JButton();
+        bt_agregar12 = new javax.swing.JButton();
+        bt_agregar13 = new javax.swing.JButton();
+        bt_agregar14 = new javax.swing.JButton();
+        bt_agregar15 = new javax.swing.JButton();
         tb_punteo1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        tb_punteo2 = new javax.swing.JTextField();
+        tb_punteo3 = new javax.swing.JTextField();
+        tb_punteo4 = new javax.swing.JTextField();
+        tb_punteo5 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -320,6 +342,11 @@ public class Principal extends javax.swing.JFrame {
         tb_agregar10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Book.Next");
@@ -457,38 +484,38 @@ public class Principal extends javax.swing.JFrame {
         jLabel23.setText("Libro5");
         jLabel23.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton17.setText("Leído");
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar11.setText("Leído");
+        bt_agregar11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                bt_agregar11ActionPerformed(evt);
             }
         });
 
-        tb_punteo2.setText("Leído");
-        tb_punteo2.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar12.setText("Leído");
+        bt_agregar12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tb_punteo2ActionPerformed(evt);
+                bt_agregar12ActionPerformed(evt);
             }
         });
 
-        tb_punteo3.setText("Leído");
-        tb_punteo3.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar13.setText("Leído");
+        bt_agregar13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tb_punteo3ActionPerformed(evt);
+                bt_agregar13ActionPerformed(evt);
             }
         });
 
-        tb_punteo4.setText("Leído");
-        tb_punteo4.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar14.setText("Leído");
+        bt_agregar14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tb_punteo4ActionPerformed(evt);
+                bt_agregar14ActionPerformed(evt);
             }
         });
 
-        tb_punteo5.setText("Leído");
-        tb_punteo5.addActionListener(new java.awt.event.ActionListener() {
+        bt_agregar15.setText("Leído");
+        bt_agregar15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tb_punteo5ActionPerformed(evt);
+                bt_agregar15ActionPerformed(evt);
             }
         });
 
@@ -499,36 +526,36 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_agregar11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tb_punteo1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(tb_punteo2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bt_agregar12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tb_punteo3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bt_agregar13, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tb_punteo4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bt_agregar14, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tb_punteo5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bt_agregar15, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
+                            .addComponent(tb_punteo2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jTextField3))
+                            .addComponent(tb_punteo3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jTextField4))
+                            .addComponent(tb_punteo4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jTextField5))
+                            .addComponent(tb_punteo5))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -544,17 +571,17 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tb_punteo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tb_punteo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_punteo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_punteo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_punteo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton17)
-                    .addComponent(tb_punteo2)
-                    .addComponent(tb_punteo3)
-                    .addComponent(tb_punteo4)
-                    .addComponent(tb_punteo5))
+                    .addComponent(bt_agregar11)
+                    .addComponent(bt_agregar12)
+                    .addComponent(bt_agregar13)
+                    .addComponent(bt_agregar14)
+                    .addComponent(bt_agregar15))
                 .addGap(22, 22, 22))
         );
 
@@ -714,7 +741,7 @@ public class Principal extends javax.swing.JFrame {
         FrmBuscador.setVisible(true); //muestra el segundo jFrame
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void bt_agregar11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregar11ActionPerformed
             
         if(tb_punteo1.getText().isEmpty() == true)
         {
@@ -740,9 +767,9 @@ public class Principal extends javax.swing.JFrame {
                 MostrarCarretilla();                   
             }       
         }            
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_bt_agregar11ActionPerformed
 
-    private void tb_punteo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo2ActionPerformed
+    private void bt_agregar12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregar12ActionPerformed
         if(tb_punteo2.getText().isEmpty() == true)
         {
             JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
@@ -767,9 +794,9 @@ public class Principal extends javax.swing.JFrame {
                 MostrarCarretilla();                   
             }       
         } 
-    }//GEN-LAST:event_tb_punteo2ActionPerformed
+    }//GEN-LAST:event_bt_agregar12ActionPerformed
 
-    private void tb_punteo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo3ActionPerformed
+    private void bt_agregar13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregar13ActionPerformed
         if(tb_punteo3.getText().isEmpty() == true)
         {
             JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
@@ -794,9 +821,9 @@ public class Principal extends javax.swing.JFrame {
                 MostrarCarretilla();                   
             }       
         } 
-    }//GEN-LAST:event_tb_punteo3ActionPerformed
+    }//GEN-LAST:event_bt_agregar13ActionPerformed
 
-    private void tb_punteo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo4ActionPerformed
+    private void bt_agregar14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregar14ActionPerformed
         if(tb_punteo4.getText().isEmpty() == true)
         {
             JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
@@ -821,9 +848,9 @@ public class Principal extends javax.swing.JFrame {
                 MostrarCarretilla();                   
             }       
         } 
-    }//GEN-LAST:event_tb_punteo4ActionPerformed
+    }//GEN-LAST:event_bt_agregar14ActionPerformed
 
-    private void tb_punteo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_punteo5ActionPerformed
+    private void bt_agregar15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_agregar15ActionPerformed
         if(tb_punteo5.getText().isEmpty() == true)
         {
             JOptionPane.showMessageDialog(null, "¡Debe intresar el punteo del libro!", 
@@ -848,7 +875,7 @@ public class Principal extends javax.swing.JFrame {
                 MostrarCarretilla();                   
             }       
         }
-    }//GEN-LAST:event_tb_punteo5ActionPerformed
+    }//GEN-LAST:event_bt_agregar15ActionPerformed
 
     private void tb_agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_agregar1ActionPerformed
         //INSERT INTO carretilla (id, id_usuario, id_libro, leido, punteo, estatus, Fecha_leido) 
@@ -1060,6 +1087,11 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tb_agregar10ActionPerformed
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        Inicializar(id_usuario);
+    }//GEN-LAST:event_formFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -1096,8 +1128,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_agregar11;
+    private javax.swing.JButton bt_agregar12;
+    private javax.swing.JButton bt_agregar13;
+    private javax.swing.JButton bt_agregar14;
+    private javax.swing.JButton bt_agregar15;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton17;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1118,10 +1154,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JButton tb_agregar1;
     private javax.swing.JButton tb_agregar10;
     private javax.swing.JButton tb_agregar2;
@@ -1133,9 +1165,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton tb_agregar8;
     private javax.swing.JButton tb_agregar9;
     private javax.swing.JTextField tb_punteo1;
-    private javax.swing.JButton tb_punteo2;
-    private javax.swing.JButton tb_punteo3;
-    private javax.swing.JButton tb_punteo4;
-    private javax.swing.JButton tb_punteo5;
+    private javax.swing.JTextField tb_punteo2;
+    private javax.swing.JTextField tb_punteo3;
+    private javax.swing.JTextField tb_punteo4;
+    private javax.swing.JTextField tb_punteo5;
     // End of variables declaration//GEN-END:variables
 }
