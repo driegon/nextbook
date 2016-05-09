@@ -5,6 +5,7 @@
  */
 package book.next;
 import basededatos.conexion;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -34,10 +35,10 @@ public class LogIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tb_usuario = new javax.swing.JTextField();
-        tb_password = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        tb_password = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,8 +50,11 @@ public class LogIn extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tb_usuario.setText("dorozco");
-
-        tb_password.setText("deisy");
+        tb_usuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tb_usuarioFocusGained(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Usuario:");
@@ -65,6 +69,18 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
+        tb_password.setText("deisy");
+        tb_password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tb_passwordFocusGained(evt);
+            }
+        });
+        tb_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tb_passwordKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -75,11 +91,10 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tb_usuario)
-                        .addComponent(tb_password, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                    .addComponent(tb_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(tb_password))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -91,14 +106,19 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tb_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(tb_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jButton2.setText("Crear Usuario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,8 +151,11 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           
+    /**
+     * Verifica el usuario y password ingresado previo a abrir el form principal
+     */
+    private void login()
+    {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
@@ -157,7 +180,6 @@ public class LogIn extends javax.swing.JFrame {
 
         if (contador > 0)
         {               
-            
             // TODO add your handling code here:
             Principal FrmPrincipal= new Principal(id_usuario);//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
 
@@ -169,7 +191,39 @@ public class LogIn extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta", "¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
+        
+        bdd.cerrarConexion();
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        login();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Usuario FrmNuevoUsuario = new Usuario();//"jFrame2" Tu colocas el nombre que le hayas puesto a tu segundo jFrame 
+        
+        FrmNuevoUsuario.setVisible(true); //muestra el segundo jFrame
+
+        this.setVisible(false);//oculta el jFrame que estes usando
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tb_usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tb_usuarioFocusGained
+        // Selecciona el texto para ser fácilmente editable
+        tb_usuario.select(0, tb_usuario.getText().length());
+    }//GEN-LAST:event_tb_usuarioFocusGained
+
+    private void tb_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tb_passwordFocusGained
+        // Selecciona el texto para ser fácilmente editable
+        tb_password.select(0, tb_password.getText().length());
+    }//GEN-LAST:event_tb_passwordFocusGained
+
+    private void tb_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_passwordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+         }
+    }//GEN-LAST:event_tb_passwordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -213,7 +267,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tb_password;
+    private javax.swing.JPasswordField tb_password;
     private javax.swing.JTextField tb_usuario;
     // End of variables declaration//GEN-END:variables
 }
