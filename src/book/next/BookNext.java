@@ -20,7 +20,7 @@ public class BookNext {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
+    }    
     
     private static int ObtenerAñoNac(int id)
     {
@@ -86,25 +86,115 @@ public class BookNext {
     public static String[] RecomendacionPorSimilitud(int id)
     {
         String[] Libros = new String[5];
+                
+        conexion bdd = new conexion();
+        ResultSet resultado = null;
         
-        Libros[0]= "Pinocho";
-        Libros[1]= "Integrales";
-        Libros[2]= "";
-        Libros[3]= "";
-        Libros[4]= "";
+        resultado = bdd.consulta(
+        "SELECT T.titulo, T.id FROM (\n" +
+        "	\n" +
+        "	SELECT DISTINCT l.* \n" +
+        "	FROM libro AS l\n" +
+        "	INNER JOIN categoria_libro as cl2 ON (l.id = cl2.id_libro)\n" +
+        "	WHERE cl2.id_categoria IN (\n" +
+        "		SELECT DISTINCT cl.id_categoria		\n" +
+        "		FROM recomendacion as r\n" +
+        "		INNER JOIN categoria_libro as cl ON (r.id_libro = cl.id_libro)\n" +
+        "		WHERE r.id_usuario in ("+ id + ") \n" +
+        "		ORDER BY r.fec_transac DESC	\n" +
+        "	)\n" +
+        "\n" +
+        "	UNION\n" +
+        "\n" +
+        "	\n" +
+        "	SELECT DISTINCT l.* \n" +
+        "	FROM libro AS l\n" +
+        "	INNER JOIN palabraclave_libro as pl2 ON (l.id = pl2.id_libro)\n" +
+        "	WHERE pl2.id_palabraclave IN (\n" +
+        "		SELECT DISTINCT pl.id_palabraclave\n" +
+        "		FROM recomendacion as r\n" +
+        "		INNER JOIN palabraclave_libro as pl ON (r.id_libro = pl.id_libro)\n" +
+        "		WHERE r.id_usuario in ("+ id + ") \n" +
+        "		ORDER BY r.fec_transac DESC	\n" +
+        "	)\n" +
+        ") AS T\n" +
+        "WHERE T.id not IN\n" +
+        "    (SELECT ca.id_libro from carretilla ca\n" +
+        "    where ca.id_usuario in ("+ id + ")) /*se descartan los que tiene en carretilla*/\n" +
+        "ORDER BY T.punteo DESC\n" +
+        "limit 5");
+                     
+        int contador = 0;
+        
+        try{
+            while (resultado.next()) {
+                Libros[contador] = resultado.getString("id") + "," + resultado.getString("titulo");                
+                contador++;                
+            }
+            resultado.close();
+        }catch(SQLException ex)
+        {
+            System.out.println("SQLException: "+ ex.getMessage());        
+        }
         
         return Libros;
     }
     
     public static String[] RecomendacionPorAprendizaje(int id)
     {
+        //Aprendizaje: ya tiene leidos, ver libros leidos de la persona, a partir de categoria 
+        //y palabras clave buscar todos los libros y order by punteo libro y fecha leido
         String[] Libros = new String[5];
+                
+        conexion bdd = new conexion();
+        ResultSet resultado = null;
         
-        Libros[0]= "0,La Bella y la Bestia";
-        Libros[1]= "1,Fisica Fundamental";
-        Libros[2]= "2,Gramatica";
-        Libros[3]= null;
-        Libros[4]= null;
+        resultado = bdd.consulta(
+        "SELECT T.titulo, T.id FROM (\n" +
+        "	\n" +
+        "	SELECT DISTINCT l.* \n" +
+        "	FROM libro AS l\n" +
+        "	INNER JOIN categoria_libro as cl2 ON (l.id = cl2.id_libro)\n" +
+        "	WHERE cl2.id_categoria IN (\n" +
+        "		SELECT DISTINCT cl.id_categoria\n" +
+        "		FROM carretilla as c\n" +
+        "		INNER JOIN categoria_libro as cl ON (c.id_libro = cl.id_libro)\n" +
+        "		WHERE c.id_usuario in ("+ id + ") \n" +
+        "		ORDER BY c.leido, c.punteo DESC\n" +
+        "	)\n" +
+        "\n" +
+        "	UNION\n" +
+        "\n" +
+        "	\n" +
+        "	SELECT DISTINCT l.* \n" +
+        "	FROM libro AS l\n" +
+        "	INNER JOIN palabraclave_libro as pl2 ON (l.id = pl2.id_libro)\n" +
+        "	WHERE pl2.id_palabraclave IN (\n" +
+        "		SELECT DISTINCT pl.id_palabraclave\n" +
+        "		FROM carretilla as c\n" +
+        "		INNER JOIN palabraclave_libro as pl ON (c.id_libro = pl.id_libro)\n" +
+        "		WHERE c.id_usuario in ("+ id + ") \n" +
+        "		ORDER BY c.leido, c.punteo DESC\n" +
+        "	)\n" +
+        ") AS T\n" +
+        "WHERE T.id not IN\n" +
+        "    (SELECT ca.id_libro from carretilla ca\n" +
+        "    where ca.id_usuario in ("+ id + ")) /*se descartan los que tiene en carretilla*/\n" +
+        "ORDER BY T.punteo DESC\n" +
+        "limit 5");
+                     
+        int contador = 0;
+        
+        try{
+            while (resultado.next()) {
+                Libros[contador] = resultado.getString("id") + "," + resultado.getString("titulo");                
+                contador++;                
+            }
+            resultado.close();
+        }catch(SQLException ex)
+        {
+            System.out.println("SQLException: "+ ex.getMessage());        
+        }
         
         return Libros;
     }
@@ -135,6 +225,5 @@ public class BookNext {
         }
         
         return Libros;
-    }
-    
+    }   
 }

@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusGained"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -284,41 +287,41 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton17" min="-2" pref="86" max="-2" attributes="0"/>
+                      <Component id="bt_agregar11" min="-2" pref="86" max="-2" attributes="0"/>
                       <Component id="jLabel19" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
                       <Component id="tb_punteo1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="tb_punteo2" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="bt_agregar12" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="tb_punteo3" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="bt_agregar13" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="tb_punteo4" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="bt_agregar14" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="tb_punteo5" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="bt_agregar15" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel20" pref="86" max="32767" attributes="0"/>
-                              <Component id="jTextField2" max="32767" attributes="0"/>
+                              <Component id="tb_punteo2" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel21" pref="86" max="32767" attributes="0"/>
-                              <Component id="jTextField3" max="32767" attributes="0"/>
+                              <Component id="tb_punteo3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel22" pref="86" max="32767" attributes="0"/>
-                              <Component id="jTextField4" max="32767" attributes="0"/>
+                              <Component id="tb_punteo4" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel23" pref="86" max="32767" attributes="0"/>
-                              <Component id="jTextField5" max="32767" attributes="0"/>
+                              <Component id="tb_punteo5" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -340,18 +343,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tb_punteo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton17" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tb_punteo2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tb_punteo3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tb_punteo4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tb_punteo5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bt_agregar11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_agregar12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_agregar13" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_agregar14" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bt_agregar15" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
@@ -409,55 +412,55 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton17">
+        <Component class="javax.swing.JButton" name="bt_agregar11">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le&#xed;do"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton17ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregar11ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="tb_punteo2">
+        <Component class="javax.swing.JButton" name="bt_agregar12">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le&#xed;do"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_punteo2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregar12ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="tb_punteo3">
+        <Component class="javax.swing.JButton" name="bt_agregar13">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le&#xed;do"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_punteo3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregar13ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="tb_punteo4">
+        <Component class="javax.swing.JButton" name="bt_agregar14">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le&#xed;do"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_punteo4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregar14ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="tb_punteo5">
+        <Component class="javax.swing.JButton" name="bt_agregar15">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le&#xed;do"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_punteo5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_agregar15ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tb_punteo1">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="tb_punteo2">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="tb_punteo3">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="tb_punteo4">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField5">
+        <Component class="javax.swing.JTextField" name="tb_punteo5">
         </Component>
       </SubComponents>
     </Container>
