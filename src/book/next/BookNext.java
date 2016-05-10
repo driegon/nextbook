@@ -53,7 +53,7 @@ public class BookNext {
         conexion bdd = new conexion();
         ResultSet resultado = null;
         
-        resultado = bdd.consulta("SELECT l.titulo, c.id_libro FROM carretilla c " +
+        resultado = bdd.consulta("SELECT DISTINCT l.titulo, c.id_libro FROM carretilla c " +
         "INNER JOIN libro l on (c.id_libro = l.id) " +
         "WHERE estatus = 1 " +
         "AND c.id_usuario IN " +
