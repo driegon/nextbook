@@ -65,7 +65,7 @@ public class BookNext {
         "AND c.id_libro not IN " +
         "    (SELECT ca.id_libro from carretilla ca " +
         "    where ca.id_usuario in ("+ id + ")) /*se descartan los que tiene en carretilla*/" +
-        "ORDER by c.leido DESC, c.punteo DESC LIMIT 5");
+        "ORDER by c.punteo DESC, c.leido DESC LIMIT 5");
                
         int contador = 0;
         
