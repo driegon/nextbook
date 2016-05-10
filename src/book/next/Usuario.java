@@ -99,7 +99,7 @@ public class Usuario extends javax.swing.JFrame {
         jLabel10.setText("Book.Next");
         jLabel10.setToolTipText("");
 
-        btn_guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\digut\\Desktop\\icons\\disk.png")); // NOI18N
+        btn_guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Deisy\\Desktop\\disk.png")); // NOI18N
         btn_guardar.setToolTipText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

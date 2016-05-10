@@ -358,7 +358,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_agregar2ActionPerformed
 
     private void btn_agregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar3ActionPerformed
-        int libroElegido = 3;
+        int libroElegido = 2;
         if(agregarACarretilla(libroElegido) == true)
         {
             JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
@@ -372,7 +372,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_agregar3ActionPerformed
 
     private void btn_agregar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar4ActionPerformed
-        int libroElegido = 4;
+        int libroElegido = 3;
         if(agregarACarretilla(libroElegido) == true)
         {
             JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
@@ -386,7 +386,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_agregar4ActionPerformed
 
     private void btn_agregar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar5ActionPerformed
-        int libroElegido = 5;
+        int libroElegido = 4;
         if(agregarACarretilla(libroElegido) == true)
         {
             JOptionPane.showMessageDialog(null, "<html>Se agregó correctamente el libro <i>" + 
